@@ -1,5 +1,5 @@
 <script>
-  import TaskBar from './TaskBar.svelte';
+  import Toolbar from './Toolbar.svelte';
   import Wallpaper from './Wallpaper.svelte';
   import Dock from './Dock.svelte';
 
@@ -8,7 +8,7 @@
 
 <div class="desktop">
   <Wallpaper />
-  <TaskBar />
+  <Toolbar />
   <Dock />
 
   <Window>
