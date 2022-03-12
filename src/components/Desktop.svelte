@@ -13,7 +13,14 @@
 
   <Window>
     <h3>Hello!!</h3>
-    <p>Content here</p>
+    <p>TODO: Content here</p>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce molestie,
+      nisl at sodales euismod, tortor nunc scelerisque ex, quis pellentesque sem
+      neque ut orci. Class aptent taciti sociosqu ad litora torquent per conubia
+      nostra, per inceptos himenaeos. Vivamus quis risus sed est sagittis luctus
+      non in orci.
+    </p>
   </Window>
 </div>
 
