@@ -1,12 +1,16 @@
 <script>
+  import clickOutside from '../directives/clickOutside';
   let isOpen = false;
 
   const toggleOpen = () => {
     isOpen = !isOpen;
   };
+  const closeDropdown = () => {
+    isOpen = false;
+  };
 </script>
 
-<div class="toolbar-option">
+<div class="toolbar-option" use:clickOutside on:outclick={closeDropdown}>
   <span class="label" class:label-open={isOpen} on:click={toggleOpen}
     ><slot />
   </span>
