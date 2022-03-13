@@ -1,0 +1,32 @@
+name: Deploy
+on:
+  push:
+    branches: [master]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install
+        run: yarn install
+      - name: Build
+        run: yarn build
+        env:
+          CI: false
+      - name: Remove old build
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            rm -r /var/www/briiquach.com/html/*
+            exit
+          host: 155.138.150.74
+          user: root
+          key: ${{ secrets.VPS_KEY}}
+      - name: Copy new build
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: public
+          remote: /var/www/briiquach.com/html
+          host: 155.138.150.74
+          username: root
+          privateKey: ${{ secrets.VPS_KEY }}
