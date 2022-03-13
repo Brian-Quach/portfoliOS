@@ -27,7 +27,7 @@
   }
   .label {
     font-size: 0.75rem;
-    padding: 0.125rem 1rem;
+    padding: 0.125rem 0.75rem;
     border-radius: 2px;
     cursor: default;
   }

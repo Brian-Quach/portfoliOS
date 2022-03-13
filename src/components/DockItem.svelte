@@ -10,7 +10,6 @@
     e.preventDefault();
   };
 
-  let style;
   $: style = `width: ${size}px; height: ${size}px;`;
 </script>
 

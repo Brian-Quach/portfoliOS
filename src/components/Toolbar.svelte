@@ -1,17 +1,19 @@
 <script>
   import ToolbarOption from './ToolbarOption.svelte';
+  import TaskbarClock from './TaskbarClock.svelte';
 </script>
 
 <div class="toolbar-wrapper">
   <div class="toolbar-left">
-    <ToolbarOption>Option 1</ToolbarOption>
-    <ToolbarOption>Option 2</ToolbarOption>
-    <ToolbarOption>Option 3</ToolbarOption>
+    <ToolbarOption>File</ToolbarOption>
+    <ToolbarOption>Edit</ToolbarOption>
+    <ToolbarOption>View</ToolbarOption>
+    <ToolbarOption>Go</ToolbarOption>
+    <ToolbarOption>Window</ToolbarOption>
+    <ToolbarOption>Help</ToolbarOption>
   </div>
   <div class="toolbar-right">
-    <ToolbarOption>Option 1</ToolbarOption>
-    <ToolbarOption>Option 2</ToolbarOption>
-    <ToolbarOption>Option 3</ToolbarOption>
+    <TaskbarClock />
   </div>
 </div>
 

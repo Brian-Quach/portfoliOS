@@ -17,7 +17,6 @@
     }
   };
 
-  let style;
   $: style = `height: ${size - 8}px;`;
 </script>
 
