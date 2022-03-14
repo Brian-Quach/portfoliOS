@@ -16,15 +16,33 @@
       size = Math.min(Math.max(size - e.movementY, MIN_SIZE), MAX_SIZE);
     }
   };
+  let prevTouch;
+  const handleTouchMove = e => {
+    var touch = e.targetTouches[0];
+    if (prevTouch) {
+      e.movementY = touch.pageY - prevTouch.pageY;
+      handleMouseMove(e);
+    }
+    prevTouch = touch;
+  };
 
   $: style = `height: ${size - 8}px;`;
 </script>
 
-<div class="dock-divider" {style} on:mousedown={handleMouseDown}>
+<div
+  class="dock-divider"
+  {style}
+  on:mousedown={handleMouseDown}
+  on:touchstart={handleMouseDown}
+>
   <div class="dock-divider-line" />
 </div>
 
-<svelte:window on:mouseup={handleMouseUp} on:mousemove={handleMouseMove} />
+<svelte:window
+  on:mouseup={handleMouseUp}
+  on:mousemove={handleMouseMove}
+  on:touchmove={handleTouchMove}
+/>
 
 <style>
   .dock-divider {

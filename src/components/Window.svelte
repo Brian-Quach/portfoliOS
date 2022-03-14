@@ -1,6 +1,6 @@
 <script>
-  export let left = 300;
-  export let top = 300;
+  export let left = 100;
+  export let top = 100;
 
   let moving = false;
 
@@ -19,11 +19,26 @@
     }
   };
 
+  let prevTouch;
+  const handleTouchMove = e => {
+    var touch = e.targetTouches[0];
+    if (prevTouch) {
+      e.movementX = touch.pageX - prevTouch.pageX;
+      e.movementY = touch.pageY - prevTouch.pageY;
+      handleMouseMove(e);
+    }
+    prevTouch = touch;
+  };
+
   $: positionStyle = `left: ${left}px; top: ${top}px;`;
 </script>
 
 <div class="window" style={positionStyle}>
-  <div class="title-bar" on:mousedown={handleMouseDown}>
+  <div
+    class="title-bar"
+    on:mousedown={handleMouseDown}
+    on:touchstart={handleMouseDown}
+  >
     <div class="actions left">
       <div class="action" />
       <div class="action" />
@@ -35,7 +50,12 @@
   <div class="content"><slot /></div>
 </div>
 
-<svelte:window on:mouseup={handleMouseUp} on:mousemove={handleMouseMove} />
+<svelte:window
+  on:mouseup={handleMouseUp}
+  on:touchend={handleMouseUp}
+  on:mousemove={handleMouseMove}
+  on:touchmove={handleTouchMove}
+/>
 
 <style>
   .window {
