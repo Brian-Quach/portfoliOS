@@ -1,4 +1,5 @@
 <script>
+  export let title = 'Title';
   export let left = 100;
   export let top = 100;
 
@@ -44,7 +45,7 @@
       <div class="action" />
       <div class="action" />
     </div>
-    <div class="title">Window Title</div>
+    <div class="title">{title}</div>
     <div class="right" />
   </div>
   <div class="content"><slot /></div>
@@ -62,7 +63,7 @@
     border: solid 1px gray;
     background-color: white;
     position: absolute;
-    width: 500px;
+    width: 650px;
     border-radius: 4px;
   }
   .title-bar {
