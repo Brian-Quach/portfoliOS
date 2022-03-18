@@ -19,6 +19,7 @@
 
 <style>
   .toolbar-wrapper {
+    z-index: 1;
     width: 100%;
     position: absolute;
     top: 0;

@@ -1,4 +1,6 @@
 <script>
+  import Window from '../os/Window.svelte';
+
   let termInput;
   let termOutput = [];
 
@@ -18,25 +20,27 @@
   let termInputValue = '';
 </script>
 
-<div class="terminal" on:mousedown={handleFocus} on:touchstart={handleFocus}>
-  <div class="terminal-text">
-    {#each termOutput as textLine, i}
-      <span class="text-line" key={i}>{textLine}</span>
-    {/each}
-    <div class="input-line">
-      <span class="input-command">
-        <span class="input-prompt">guest@briiquach:~$</span>
-        {termInputValue}<span class="cursor" />
-      </span>
-      <input
-        class="term-in"
-        bind:this={termInput}
-        bind:value={termInputValue}
-        on:keydown={handleKeyDown}
-      />
+<Window title="Terminal" key="terminal">
+  <div class="terminal" on:mousedown={handleFocus} on:touchstart={handleFocus}>
+    <div class="terminal-text">
+      {#each termOutput as textLine, i}
+        <span class="text-line" key={i}>{textLine}</span>
+      {/each}
+      <div class="input-line">
+        <span class="input-command">
+          <span class="input-prompt">guest@briiquach:~$</span>
+          {termInputValue}<span class="cursor" />
+        </span>
+        <input
+          class="term-in"
+          bind:this={termInput}
+          bind:value={termInputValue}
+          on:keydown={handleKeyDown}
+        />
+      </div>
     </div>
   </div>
-</div>
+</Window>
 
 <style>
   .terminal {

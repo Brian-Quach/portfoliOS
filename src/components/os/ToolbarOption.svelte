@@ -1,5 +1,5 @@
 <script>
-  import clickOutside from '../directives/clickOutside';
+  import clickOutside from '../../directives/clickOutside';
   let isOpen = false;
 
   const toggleOpen = () => {

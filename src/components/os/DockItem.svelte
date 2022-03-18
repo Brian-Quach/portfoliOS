@@ -1,9 +1,16 @@
 <script>
+  import {openedApps, focusedApp} from '../../stores/apps';
+  export let key = '';
   export let size = 64;
   export let name = 'Settings';
   export let icon = '/assets/icons/settings.png';
-  let onClick = () => {
-    console.log('Clicked');
+
+  let onClick = async () => {
+    focusedApp.set(key);
+    openedApps.update(apps => {
+      apps[key] = true;
+      return apps;
+    });
   };
 
   const disableDrag = e => {

@@ -3,8 +3,9 @@
   import Wallpaper from './Wallpaper.svelte';
   import Dock from './Dock.svelte';
 
-  import Window from './Window.svelte';
-  import Terminal from './Terminal.svelte';
+  import Terminal from '../apps/Terminal.svelte';
+  import Files from '../apps/Files.svelte';
+  import Mail from '../apps/Mail.svelte';
 </script>
 
 <div class="desktop">
@@ -12,9 +13,9 @@
   <Toolbar />
   <Dock />
 
-  <Window title="Terminal">
-    <Terminal />
-  </Window>
+  <Terminal />
+  <Files />
+  <Mail />
 </div>
 
 <style>

@@ -1,5 +1,5 @@
 <script>
-  import Desktop from './components/Desktop.svelte';
+  import Desktop from './components/os/Desktop.svelte';
 </script>
 
 <Desktop />
