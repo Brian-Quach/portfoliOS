@@ -1,5 +1,6 @@
 <script>
   import Window from '../os/Window.svelte';
+  import TypedJs from '../TypedJs.svelte';
 
   let termInput;
   let termOutput = [];
@@ -24,7 +25,9 @@
   <div class="terminal" on:mousedown={handleFocus} on:touchstart={handleFocus}>
     <div class="terminal-text">
       {#each termOutput as textLine, i}
-        <span class="text-line" key={i}>{textLine}</span>
+        <div class="text-line" key={i}>
+          <TypedJs string={textLine} />
+        </div>
       {/each}
       <div class="input-line">
         <span class="input-command">
