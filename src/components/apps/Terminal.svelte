@@ -1,12 +1,70 @@
 <script>
+  import {onMount} from 'svelte';
   import Window from '../os/Window.svelte';
   import TypedJs from '../TypedJs.svelte';
 
+  import {intro, commands} from '../../appdata/terminal';
+
+  let inputVisible = 'display: none;';
+  let introText = intro;
   let termInput;
-  let termOutput = [];
+  let terminalOutput = [];
+
+  const enableInput = () => {
+    setTimeout(async () => {
+      inputVisible = null;
+    }, 500);
+  };
+
+  const nextIntroText = async () => {
+    const text = introText.shift();
+    terminalOutput = [
+      ...terminalOutput,
+      {
+        type: 'typed',
+        text,
+        onComplete: introText.length ? nextIntroText : enableInput
+      }
+    ];
+  };
+
+  onMount(async () => {
+    nextIntroText();
+  });
 
   const sendCommand = async () => {
-    termOutput = [...termOutput, termInputValue];
+    terminalOutput = [
+      ...terminalOutput,
+      {
+        type: 'command',
+        text: termInputValue
+      }
+    ];
+
+    const command =
+      termInputValue.indexOf(' ') !== -1
+        ? termInputValue.substring(0, termInputValue.indexOf(' '))
+        : termInputValue;
+    const params = termInputValue.substring(termInputValue.indexOf(' ') + 1);
+
+    const commandFunction = commands[command];
+    if (commandFunction) {
+      terminalOutput = [
+        ...terminalOutput,
+        {
+          type: 'text',
+          text: commandFunction(params)
+        }
+      ];
+    } else {
+      terminalOutput = [
+        ...terminalOutput,
+        {
+          type: 'error',
+          text: `command not found: ${command}`
+        }
+      ];
+    }
     termInputValue = '';
   };
   const handleKeyDown = async e => {
@@ -24,12 +82,23 @@
 <Window title="Terminal" key="terminal">
   <div class="terminal" on:mousedown={handleFocus} on:touchstart={handleFocus}>
     <div class="terminal-text">
-      {#each termOutput as textLine, i}
-        <div class="text-line" key={i}>
-          <TypedJs string={textLine} />
-        </div>
+      {#each terminalOutput as line}
+        {#if line.type === 'text'}
+          <div class="text-line">
+            {line.text}
+          </div>
+        {:else if line.type === 'typed'}
+          <TypedJs string={line.text} on:complete={line.onComplete} />
+        {:else if line.type === 'command'}
+          <div class="text-line">
+            <span class="input-prompt">guest@briiquach:~$&nbsp;</span
+            >{line.text}
+          </div>
+        {:else}
+          <div class="text-line">{line.text}</div>
+        {/if}
       {/each}
-      <div class="input-line">
+      <div class="input-line" style={inputVisible}>
         <span class="input-command">
           <span class="input-prompt">guest@briiquach:~$</span>
           {termInputValue}<span class="cursor" />
@@ -55,6 +124,7 @@
     overflow-y: scroll;
   }
   .text-line {
+    overflow-wrap: break-word;
     display: block;
   }
   .terminal-text {

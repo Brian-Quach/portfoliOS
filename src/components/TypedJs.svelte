@@ -13,6 +13,7 @@
       strings: [string],
       cursorChar: '',
       typeSpeed,
+      startDelay: 150,
       onComplete: typed => {
         const cursor = typed.cursor;
         cursor.remove();
@@ -23,10 +24,13 @@
 </script>
 
 <div class="typed-js">
-  <span bind:this={text}><slot /></span>
+  <span bind:this={text} />
 </div>
 
 <style>
+  .typed-js span {
+    overflow-wrap: break-word;
+  }
   :global(.typed-js .typed-cursor) {
     display: inline-block;
     height: 16px;
