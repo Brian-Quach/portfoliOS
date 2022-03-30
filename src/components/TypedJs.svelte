@@ -5,21 +5,23 @@
   const dispatch = createEventDispatcher();
   let text;
 
-  export let string = 'Hello World';
+  export let string;
   export let typeSpeed = 40;
 
   onMount(() => {
-    new Typed(text, {
-      strings: [string],
-      cursorChar: '',
-      typeSpeed,
-      startDelay: 150,
-      onComplete: typed => {
-        const cursor = typed.cursor;
-        cursor.remove();
-        dispatch('complete');
-      }
-    });
+    if (string) {
+      new Typed(text, {
+        strings: [string],
+        cursorChar: '',
+        typeSpeed,
+        startDelay: 150,
+        onComplete: typed => {
+          const cursor = typed.cursor;
+          cursor.remove();
+          dispatch('complete');
+        }
+      });
+    }
   });
 </script>
 

@@ -1,4 +1,5 @@
 <script>
+  import {onMount} from 'svelte';
   import clickOutside from '../../directives/clickOutside';
   import {openedApps, focusedApp} from '../../stores/apps';
 
@@ -64,33 +65,30 @@
     `left: ${left}px; top: ${top}px; width: ${width}px;
      z-index: ${focused ? 2 : 0}` + (windowVisible ? '' : 'display: none;');
   $: contentStyle = `height: ${height}px;`;
-  $: appOpened = $openedApps[key];
 </script>
 
-{#if appOpened}
+<div
+  class="window"
+  style={windowStyle}
+  use:clickOutside
+  on:mousedown={handleFocus}
+  on:touchStart={handleFocus}
+>
   <div
-    class="window"
-    style={windowStyle}
-    use:clickOutside
-    on:mousedown={handleFocus}
-    on:touchStart={handleFocus}
+    class="title-bar"
+    on:mousedown={handleMouseDown}
+    on:touchstart={handleMouseDown}
   >
-    <div
-      class="title-bar"
-      on:mousedown={handleMouseDown}
-      on:touchstart={handleMouseDown}
-    >
-      <div class="actions left">
-        <div class="action" on:click={handleCloseWindow} />
-        <div class="action" on:click={handleMinimize} />
-        <div class="action" on:click={handleToggleMax} />
-      </div>
-      <div class="title">{title}</div>
-      <div class="right" />
+    <div class="actions left">
+      <div class="action" on:click={handleCloseWindow} />
+      <div class="action" on:click={handleMinimize} />
+      <div class="action" on:click={handleToggleMax} />
     </div>
-    <div style={contentStyle}><slot /></div>
+    <div class="title">{title}</div>
+    <div class="right" />
   </div>
-{/if}
+  <div style={contentStyle}><slot /></div>
+</div>
 
 <svelte:window
   on:mouseup={handleMouseUp}

@@ -2,11 +2,12 @@
   import {onMount} from 'svelte';
   import Window from '../os/Window.svelte';
   import TypedJs from '../TypedJs.svelte';
+  import {introDone, openedApps} from '../../stores/apps';
 
   import {intro, commands} from '../../appdata/terminal';
 
   let inputVisible = 'display: none;';
-  let introText = intro;
+  let introText;
   let termInput;
   let terminalOutput = [];
 
@@ -27,10 +28,6 @@
       }
     ];
   };
-
-  onMount(async () => {
-    nextIntroText();
-  });
 
   const sendCommand = async () => {
     terminalOutput = [
@@ -77,42 +74,69 @@
     termInput.focus();
   };
   let termInputValue = '';
+
+  let appOpened;
+  const handleAppOpened = opened => {
+    appOpened = opened;
+    if (!opened) {
+      terminalOutput = [];
+    }
+    if (opened && $introDone.terminal) {
+      enableInput();
+    }
+    if (opened && !$introDone.terminal) {
+      introText = intro;
+      nextIntroText();
+      introDone.update(apps => {
+        apps.terminal = true;
+        return apps;
+      });
+    }
+  };
+
+  $: handleAppOpened($openedApps.terminal);
 </script>
 
-<Window title="Terminal" key="terminal">
-  <div class="terminal" on:mousedown={handleFocus} on:touchstart={handleFocus}>
-    <div class="terminal-text">
-      {#each terminalOutput as line}
-        {#if line.type === 'text'}
-          <div class="text-line">
-            {line.text}
-          </div>
-        {:else if line.type === 'typed'}
-          <TypedJs string={line.text} on:complete={line.onComplete} />
-        {:else if line.type === 'command'}
-          <div class="text-line">
-            <span class="input-prompt">guest@briiquach:~$&nbsp;</span
-            >{line.text}
-          </div>
-        {:else}
-          <div class="text-line">{line.text}</div>
-        {/if}
-      {/each}
-      <div class="input-line" style={inputVisible}>
-        <span class="input-command">
-          <span class="input-prompt">guest@briiquach:~$</span>
-          {termInputValue}<span class="cursor" />
-        </span>
-        <input
-          class="term-in"
-          bind:this={termInput}
-          bind:value={termInputValue}
-          on:keydown={handleKeyDown}
-        />
+{#if appOpened}
+  <Window title="Terminal" key="terminal">
+    <div
+      class="terminal"
+      on:mousedown={handleFocus}
+      on:touchstart={handleFocus}
+    >
+      <div class="terminal-text">
+        {#each terminalOutput as line}
+          {#if line.type === 'text'}
+            <div class="text-line">
+              {line.text}
+            </div>
+          {:else if line.type === 'typed'}
+            <TypedJs string={line.text} on:complete={line.onComplete} />
+          {:else if line.type === 'command'}
+            <div class="text-line">
+              <span class="input-prompt">guest@briiquach:~$&nbsp;</span
+              >{line.text}
+            </div>
+          {:else}
+            <div class="text-line">{line.text}</div>
+          {/if}
+        {/each}
+        <div class="input-line" style={inputVisible}>
+          <span class="input-command">
+            <span class="input-prompt">guest@briiquach:~$</span>
+            {termInputValue}<span class="cursor" />
+          </span>
+          <input
+            class="term-in"
+            bind:this={termInput}
+            bind:value={termInputValue}
+            on:keydown={handleKeyDown}
+          />
+        </div>
       </div>
     </div>
-  </div>
-</Window>
+  </Window>
+{/if}
 
 <style>
   .terminal {

@@ -7,6 +7,7 @@
 
   let onClick = async () => {
     focusedApp.set(key);
+    if ($openedApps[key]) return;
     openedApps.update(apps => {
       apps[key] = true;
       return apps;
