@@ -80,6 +80,7 @@
     appOpened = opened;
     if (!opened) {
       terminalOutput = [];
+      introText = [];
     }
     if (opened && $introDone.terminal) {
       enableInput();
