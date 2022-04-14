@@ -1,6 +1,7 @@
 import svelte from 'rollup-plugin-svelte';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
+import {string} from 'rollup-plugin-string';
 import livereload from 'rollup-plugin-livereload';
 import {terser} from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
@@ -46,6 +47,9 @@ export default {
         // enable run-time checks when not in production
         dev: !production
       }
+    }),
+    string({
+      include: ['**/*.md']
     }),
     // we'll extract any component CSS out into
     // a separate file - better for performance

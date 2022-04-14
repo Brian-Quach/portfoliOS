@@ -12,8 +12,13 @@
     <DockItem {size} name={'Github'} icon={'/assets/icons/github.png'} />
     <DockItem {size} />
     <DockItem {size} />
-    <DockItem {size} />
     <DockDivider bind:size />
+    <DockItem
+      {size}
+      key={'notes'}
+      name={'Notes'}
+      icon={'/assets/icons/notes.png'}
+    />
     <DockItem
       {size}
       key={'terminal'}

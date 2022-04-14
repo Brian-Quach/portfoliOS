@@ -1,13 +1,12 @@
 <script>
-  import {onMount} from 'svelte';
   import clickOutside from '../../directives/clickOutside';
   import {openedApps, focusedApp} from '../../stores/apps';
 
   export let title = 'Title';
   export let key;
 
-  export let left = 100;
-  export let top = 100;
+  export let left = 250;
+  export let top = 150;
   export let width = 650;
   export let height = 400;
 
@@ -87,7 +86,7 @@
     <div class="title">{title}</div>
     <div class="right" />
   </div>
-  <div style={contentStyle}><slot /></div>
+  <div class="content" style={contentStyle}><slot /></div>
 </div>
 
 <svelte:window
@@ -131,5 +130,9 @@
   .left,
   .right {
     flex: 1;
+  }
+  .content {
+    height: 100%;
+    overflow: scroll;
   }
 </style>

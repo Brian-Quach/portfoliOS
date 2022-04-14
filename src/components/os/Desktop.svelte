@@ -6,6 +6,7 @@
   import Terminal from '../apps/Terminal.svelte';
   import Files from '../apps/Files.svelte';
   import Mail from '../apps/Mail.svelte';
+  import Notes from '../apps/Notes.svelte';
 </script>
 
 <div class="desktop">
@@ -16,6 +17,7 @@
   <Terminal />
   <Files />
   <Mail />
+  <Notes />
 </div>
 
 <style>
