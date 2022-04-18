@@ -6,7 +6,7 @@
   export let key;
 
   export let left = 250;
-  export let top = 150;
+  export let top = 75;
   export let width = 650;
   export let height = 400;
 
@@ -79,9 +79,9 @@
     on:touchstart={handleMouseDown}
   >
     <div class="actions left">
-      <div class="action" on:click={handleCloseWindow} />
-      <div class="action" on:click={handleMinimize} />
-      <div class="action" on:click={handleToggleMax} />
+      <div class="action close" on:click={handleCloseWindow} />
+      <div class="action min" on:click={handleMinimize} />
+      <div class="action max" on:click={handleToggleMax} />
     </div>
     <div class="title">{title}</div>
     <div class="right" />
@@ -120,6 +120,17 @@
     height: 12px;
     width: 12px;
     border-radius: 50%;
+  }
+
+  .close {
+    background-color: red;
+  }
+
+  .min {
+    background-color: yellow;
+  }
+
+  .max {
     background-color: green;
   }
 

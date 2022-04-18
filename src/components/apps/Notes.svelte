@@ -22,8 +22,11 @@
     }
   ];
 
-  let width = 850;
-  let height = 600;
+  export let width = 900;
+  export let height = 600;
+
+  export let top;
+  export let left;
 
   $: appOpened = $openedApps.notes;
   $: notesStyle = `width: ${width}px; height: ${height}px`;
@@ -31,7 +34,7 @@
 </script>
 
 {#if appOpened}
-  <Window title="Notes" key="notes" bind:width bind:height>
+  <Window title="Notes" key="notes" bind:width bind:height bind:top bind:left>
     <div class="notes" style={notesStyle}>
       <div class="file-select">
         {#each files as file, i}

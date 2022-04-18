@@ -11,7 +11,18 @@
     <DockItem {size} name={'VS Code'} icon={'/assets/icons/vscode.png'} />
     <DockItem {size} name={'Github'} icon={'/assets/icons/github.png'} />
     <DockItem {size} />
-    <DockItem {size} />
+    <DockItem
+      {size}
+      key={'files'}
+      name={'Files'}
+      icon={'/assets/icons/files.png'}
+    />
+    <DockItem
+      {size}
+      key={'mail'}
+      name={'Mail'}
+      icon={'/assets/icons/mail.png'}
+    />
     <DockDivider bind:size />
     <DockItem
       {size}
@@ -25,24 +36,12 @@
       name={'Terminal'}
       icon={'/assets/icons/terminal.png'}
     />
-    <DockItem
-      {size}
-      key={'files'}
-      name={'Files'}
-      icon={'/assets/icons/files.png'}
-    />
-    <DockItem
-      {size}
-      key={'mail'}
-      name={'Mail'}
-      icon={'/assets/icons/mail.png'}
-    />
   </div>
 </div>
 
 <style>
   .dock-wrapper {
-    z-index: 1;
+    z-index: 3;
     user-select: none;
     width: 100%;
     position: absolute;

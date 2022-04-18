@@ -5,7 +5,7 @@
   export let name = 'Settings';
   export let icon = '/assets/icons/settings.png';
 
-  let onClick = async () => {
+  export let onClick = async () => {
     focusedApp.set(key);
     if ($openedApps[key]) return;
     openedApps.update(apps => {

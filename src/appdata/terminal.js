@@ -1,8 +1,7 @@
 export const intro = [
-  'Hey. My name is Brian Quach.',
-  "I'm a full stack web developer based in Toronto.",
-  'Welcome to my porfolio!',
-  'This is still a work in progress but feel free to type a command or interact with the page!'
+  'Hiya!',
+  'It looks like you found the terminal!',
+  'This is still a work in progress but feel free to type in a command.'
 ];
 
 export const commands = {
